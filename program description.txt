@@ -1,0 +1,35 @@
+This program is designed to analyze seismic data from stationary instruments or rovers.
+Focusing on detecting and analyzing seismic events based on velocity data from CSV files. Here's a detailed breakdown of how the program works:
+
+1. Loading and Processing Data
+The program begins by loading seismic data from a specified CSV file. The CSV file contains:
+Absolute timestamps of the recordings (time_abs).
+Relative times (time_rel in seconds).
+Velocity measurements (velocity(m/s)), representing the seismic movements detected by the instrument.
+The program extracts these values and converts them into arrays for further analysis.
+2. Filtering the Data
+The program applies two types of filters to clean and isolate the relevant frequencies in the seismic data:
+High-pass filter: Removes low-frequency noise by allowing only signals above a specific cutoff frequency (1.0 Hz in this case) to pass through.
+Bandpass filter: Further isolates the frequency range of interest (0.5–1.0 Hz) to focus on the frequency bands most relevant to the seismic analysis.
+This ensures that the data is clearer and more focused for identifying potential seismic events.
+3. Seismic Event Detection using STA/LTA Algorithm
+The program implements the STA/LTA (Short-Term Average/Long-Term Average) algorithm to detect seismic events.
+STA refers to a short-term moving average of the signal, which detects sudden changes or spikes in the signal.
+LTA refers to the long-term moving average, which represents the overall trend or baseline of the signal.
+By comparing the ratio of STA to LTA, the program identifies the moments when the signal changes abruptly, indicating potential seismic events.
+The program uses thresholds (0.9 for event onset and 0.1 for event offset) to trigger the start and end of a seismic event. These moments are marked on the plots.
+4. Plotting Data and Spectrograms
+The program generates detailed plots for visual analysis:
+Original and filtered data plots: Show the velocity over time, with marked triggers for detected seismic events.
+Spectrograms: Display how the frequency content of the signal changes over time, helping in visualizing the seismic activity in the frequency domain.
+Both the original and filtered data are visualized side by side for comparison.
+5. Saving Detected Events
+When the STA/LTA algorithm detects an event, the program saves the following details in a CSV file:
+Filename of the analyzed data.
+Absolute time of the detected event onset.
+Relative time from the beginning of the recording.
+This allows for an organized record of all detected seismic events for further analysis.
+6. Results and Output
+The program outputs the maximum absolute value of velocity (m/s) from the seismic data, which gives an indication of the intensity of the seismic activity.
+All plots and detection data are saved in the specified output directory for later review.
+In summary, this program is a tool for processing and analyzing seismic data. It filters the raw data, applies an event detection algorithm, and visualizes the results in both the time and frequency domains, providing insights into seismic events recorded by stationary seismic instruments or rovers.
